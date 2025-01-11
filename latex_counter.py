@@ -22,7 +22,7 @@ def main(file_paths):
             current_count += count_characters(file_path)
             continue
         for tex_file in os.listdir(file_path):
-            if file_path[-4:] == 'tex': # ディレクトリパスの場合
+            if file_path[-4:] == '.tex': # ディレクトリパスの場合
                 current_count += count_characters(os.path.join(file_path, tex_file))
 
     # 前日の文字数を取得
