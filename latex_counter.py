@@ -1,4 +1,4 @@
-import os, re, sys
+import os, re, sys, json
 
 def count_characters(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -10,7 +10,7 @@ def count_characters(file_path):
     return len(content)
 
 def main(file_paths):
-    record_file = 'record.txt'
+    record_file = 'record.json'
 
     # 現在の文字数をカウント
     current_count = 0
@@ -28,7 +28,8 @@ def main(file_paths):
     # 前日の文字数を取得
     if os.path.exists(record_file):
         with open(record_file, 'r', encoding='utf-8') as f:
-            previous_count = int(f.read().strip())
+            d = json.load(f)
+            previous_count = int(d['current_count'])
     else:
         previous_count = 0
 
@@ -38,9 +39,15 @@ def main(file_paths):
     print(f"Current count: {current_count}")
     print(f"Difference: {difference}")
 
-    # 現在の文字数を記録
+    # JSON形式で結果を出力
+    result = {
+        "previous_count": previous_count,
+        "current_count": current_count,
+        "difference": difference
+    }
     with open(record_file, 'w', encoding='utf-8') as f:
-        f.write(str(current_count))
+        json.dump(result, f, ensure_ascii=False, indent=4)
+    print(f"Written to {record_file}")
 
 if __name__ == '__main__':
     args = sys.argv
