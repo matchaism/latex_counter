@@ -6,5 +6,6 @@ targets = [
     '../manuscript/chapter/chapter3',
     '../manuscript/chapter/chapter4',
     '../manuscript/chapter/chapter5',
-    '../manuscript/chapter/chapter6'
+    '../manuscript/chapter/chapter6',
+    '../manuscript/include/acknowledgement.tex'
 ]
