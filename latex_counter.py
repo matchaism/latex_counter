@@ -1,4 +1,5 @@
 import os, re, json
+from datetime import datetime
 import config
 
 def count_characters(file_path):
@@ -37,6 +38,7 @@ def listup_tex_file(targets):
 
 def main():
     record_file = 'record.json'
+    log_file = 'log.txt'
 
     # texファイルのパスをリストアップ
     file_paths = listup_tex_file(config.targets)
@@ -68,6 +70,10 @@ def main():
     }
     with open(record_file, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=4)
+
+    # ログを出力
+    with open(log_file, 'a', encoding='utf-8') as f:
+        f.write(f'{datetime.now().strftime("%Y-%m-%d")}: {previous_count}, {current_count}, {difference}\n')
 
 if __name__ == '__main__':
     main()
