@@ -1,4 +1,4 @@
-import os, re, json
+import os, re, json, csv
 from datetime import datetime
 import config
 
@@ -38,7 +38,7 @@ def listup_tex_file(targets):
 
 def main():
     record_file = 'record.json'
-    log_file = 'log.txt'
+    log_file = 'log.csv'
 
     # texファイルのパスをリストアップ
     file_paths = listup_tex_file(config.targets)
@@ -72,8 +72,12 @@ def main():
         json.dump(result, f, ensure_ascii=False, indent=4)
 
     # ログを出力
-    with open(log_file, 'a', encoding='utf-8') as f:
-        f.write(f'{datetime.now().strftime("%Y-%m-%d")}: {previous_count}, {current_count}, {difference}\n')
+    rows = [[datetime.now().strftime('%Y-%m-%d'), previous_count, current_count, difference]]
+    if not os.path.exists(log_file):
+        rows = [['date', 'previous_count', 'current_count', 'difference']] + rows
+    with open(log_file, 'a', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerows(rows)
 
 if __name__ == '__main__':
     main()
