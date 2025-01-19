@@ -19,7 +19,7 @@ def listup_tex_file(targets):
     for target in targets:
         # ファイルが存在しない場合
         if not os.path.exists(target):
-            print(f"Error: {target} does not exist.")
+            print(f'Error: {target} does not exist.')
             continue
 
         # texファイルへの直接のパスの場合
@@ -49,26 +49,25 @@ def main():
         current_count += count_characters(file_path)
 
     # 前日の文字数を取得
+    previous_count = 0
     if os.path.exists(record_file):
         with open(record_file, 'r', encoding='utf-8') as f:
             d = json.load(f)
             previous_count = int(d['current_count'])
-    else:
-        previous_count = 0
 
     # 増減を計算
     difference = current_count - previous_count
-    print(f"Previous count: {previous_count}")
-    print(f"Current count: {current_count}")
-    print(f"Difference: {difference}")
+    print(f'Previous count: {previous_count}')
+    print(f'Current count: {current_count}')
+    print(f'Difference: {difference}')
 
     # JSON形式で結果を出力
     result = {
-        "previous_count": previous_count,
-        "current_count": current_count,
-        "difference": difference
+        'previous_count': previous_count,
+        'current_count': current_count,
+        'difference': difference
     }
-    with open(record_file, 'w', encoding='utf-8') as f:
+    with open(record_file, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(result, f, ensure_ascii=False, indent=4)
 
     # ログを出力
