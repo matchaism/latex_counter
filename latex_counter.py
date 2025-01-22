@@ -75,7 +75,7 @@ def main():
     if not os.path.exists(log_file):
         rows = [['date', 'previous_count', 'current_count', 'difference']] + rows
     with open(log_file, 'a', encoding='utf-8', newline='') as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator='\n')
         writer.writerows(rows)
 
 if __name__ == '__main__':
